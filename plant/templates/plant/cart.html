@@ -1,0 +1,91 @@
+{% extends 'plant/base.html' %} {% block content %}
+<main>
+  <div class="container">
+    <div class="table-responsive text-nowrap">
+      <h2>Cart</h2>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Item Price</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+           {% for item in cart_items %}
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{item.quantity}}</td>
+          <td>{% widthratio item.price 1 item.quantity%}</td>
+          
+          </tr>
+          {% endfor %}
+            <td>
+              <a href=""><i class="fas fa-minus mr-2"></i></a>
+
+              <a href=""><i class="fas fa-plus ml-2"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="badge badge-primary">Saving </span>
+
+              <a style="color: red" href="">
+                <i class="fas fa-trash float-right"></i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4"><b>Order Total</b></td>
+            {% comment %} <td>{% cart_items%}
+            {%reduce(total, item.price , item.quantity):
+                return total + item.price * item.quantity)%}
+            </td> {% endcomment %}
+          </tr>
+          <tr>
+            <td colspan="5">
+              <a class="btn btn-warning float-right ml-2" href="/checkout/"
+                >Proceed to checkout</a
+              >
+              <a class="btn btn-primary float-right" href="/"
+                >Continue shopping</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+{% comment %}
+<script>
+    function removToCart(productID){
+       var token = '{{csrf_token}}';
+
+
+   $.ajax({
+       headers: { "X-CSRFToken": token },
+       type: 'GET',
+       url: '/cart/'+ productID,
+       dataType: 'json',
+
+   });
+     } {% endcomment %}
+  {% comment %}
+</script>
+<script>
+   let price= {{item.price}}
+  consle.log(price)
+  const selectElement = document.getElementById('#quantity');
+
+  selectElement.addEventListener('change', (event) => {
+    const result = document.getElementById('#add');
+
+    result.textContent = this.value;
+  });
+</script>
+{% endcomment %} {% endblock content %}

@@ -1,0 +1,85 @@
+{% extends 'plant/base.html' %} 
+{% load carton_tags %}
+{% get_cart as cart %}
+{% block content %}
+  <main>
+    <div class="container">
+
+    <div class="table-responsive text-nowrap">
+    <h2>Order Summary</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Item Price</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr>
+        {% for item in cart.items %}
+        <th scope="row"></th>
+        <td>{{ item.product.name }}</td>
+       <td> {{ item.stock }}</td>
+       <td>{{ item.price }}</td>
+         {% endfor %}
+
+            </tr>
+
+       {% comment %} {%for orderdetail in Orderdetails %}
+        <tr>
+            <th scope="row"></th>
+            <td>{{ orderdetail.product}}</td>
+            <td>{{ orderdetail.product.price }}</td>
+            <td>{{ orderdetail.quantity}}</td>
+            {% comment %} <td>{{ orderdetail.product.price|mul:orderdetail.quantity}} </td> {% endcomment %}
+            {% comment %} <td>{% widthratio orderdetail.product.price 1  orderdetail.quantity%}  </td> {% endcomment %}
+
+            
+            
+            {% comment %} <td> {% endcomment %}
+            {% comment %} {%endfor%} {% endcomment %} 
+            
+                <a href=""><i class="fas fa-minus mr-2"></i></a>
+                
+                <a href=""><i class="fas fa-plus ml-2"></i></a>
+            </td>
+            <td>
+                <span class="badge badge-primary">Saving </span>
+
+            <a style='color: red;' href="">
+                <i class="fas fa-trash float-right"></i>
+            </a>
+            </td>
+        </tr>
+      
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="4"><b>Order Total</b></td>
+            <td><b>$</b></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout</a>
+            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            </td>
+        </tr>
+        
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main>
+
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'plant/base.html' %} {%block content%} 
+<div class="row">
+{%for product in Products %}
+  <div class="col">
+    <div class="card" style="width: 25rem">
+      <a href="product/{{product.id}}"><img class="card-img-top" src="{{product.image}}" alt="Card image cap" /></a>
+      <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text"> ${{product.price}}
+        </p>
+        <p class="card-text"> {{product.description}}
+        </p>
+        <a onclick="addToCart({{product.id}})" class="btn btn-primary">Add to Cart</a>
+      </div>
+    </div>
+  </div>
+{%endfor%}
+</div>
+
+<script>
+  function addToCart(productID){
+     var token = '{{csrf_token}}';
+
+
+ $.ajax({
+     headers: { "X-CSRFToken": token },
+     type: 'GET',
+     url: '/cart/'+ productID,
+     dataType: 'json',
+    
+ });
+   }
+</script>
+
+ {% endblock content %}
